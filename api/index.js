@@ -7,7 +7,8 @@
  *           Falls back to local SQLite file for local dev
  */
 
-require('dotenv').config();
+try { require('dotenv').config(); } catch (e) { /* Vercel injects env vars directly */ }
+
 
 const express = require('express');
 const cors = require('cors');
@@ -582,6 +583,18 @@ app.delete('/api/admin/messages/:id', requireAuth, async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Erreur lors de la suppression du message.' });
   }
+});
+
+// ==========================================
+// GLOBAL ERROR HANDLER (must be last)
+// ==========================================
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err.message);
+  if (err instanceof SyntaxError && err.status === 400) {
+    return res.status(400).json({ error: 'Format JSON invalide.' });
+  }
+  res.status(500).json({ error: 'Erreur serveur interne.' });
 });
 
 module.exports = app;
