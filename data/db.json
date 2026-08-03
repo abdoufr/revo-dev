@@ -3,7 +3,7 @@
     "badgeText": "Disponible pour opportunités & projets freelance",
     "title": "Conception & Developpement Multi-Plateformes (Full-Stack Express API)",
     "description": "Bienvenue sur mon site vitrine. Découvrez l'ensemble de mes réalisations techniques : applications mobiles performantes (Flutter), plateformes web réactives (React/Node) et architectures d'APIs robustes.",
-    "codeSnippet": "class ProjectShowcase {\n  final String stack = 'Flutter + Web & Backend';\n  final bool qualityDriven = true;\n\n  Future<Solution> buildProduct() async {\n    return Solution.optimize(\n      performance: '100%',\n      userExperience: 'Fluid & Seamless'\n    );\n  }\n}"
+    "codeSnippet": "class RevoDev {\n  final String stack = 'Flutter + Web & Backend';\n  final bool qualityDriven = true;\n\n  Future<Solution> buildProduct() async {\n    return Solution.optimize(\n      performance: '100%',\n      userExperience: 'Fluid & Seamless'\n    );\n  }\n}"
   },
   "stats": [
     {

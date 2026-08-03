@@ -83,6 +83,17 @@ body {
   font-weight: 700;
 }
 
+.sidebar-logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
 .brand-text span { display: block; }
 .brand-text span:first-child { font-weight: 900; font-size: 1.2rem; }
 .brand-text .brand-sub { font-size: 0.78rem; color: #4ade80; font-weight: 700; }

@@ -183,6 +183,22 @@ button, input, textarea, select {
   box-shadow: var(--shadow-green-glow);
 }
 
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.05);
+}
+
+
 .nav-links {
   display: flex;
   align-items: center;
