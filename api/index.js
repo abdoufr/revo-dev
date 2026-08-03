@@ -23,10 +23,21 @@ const app = express();
 // ==========================================
 // TURSO DATABASE CLIENT
 // ==========================================
+const TURSO_URL = process.env.TURSO_DATABASE_URL || 'file:local.db';
+const TURSO_TOKEN = process.env.TURSO_AUTH_TOKEN;
+
+// Safety check: on Vercel (read-only FS), file: URLs won't work
+if (TURSO_URL.startsWith('file:') && process.env.VERCEL) {
+  throw new Error(
+    '❌ TURSO_DATABASE_URL must be set to a Turso cloud URL (libsql://...) in Vercel env variables!'
+  );
+}
+
 const turso = createClient({
-  url: process.env.TURSO_DATABASE_URL || 'file:local.db',
-  authToken: process.env.TURSO_AUTH_TOKEN
+  url: TURSO_URL,
+  authToken: TURSO_TOKEN
 });
+
 
 // ==========================================
 // ADMIN AUTH CONFIG
