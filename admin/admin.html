@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panneau d'Administration | Dev Showcase</title>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- Admin Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">&lt;/&gt;</div>
+      <div class="brand-text">
+        <span>DevShowcase</span>
+        <span class="brand-sub">Admin Panel v2.0</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button class="menu-item active" data-tab="overview">
+        <i class="fa-solid fa-chart-pie"></i> Vue d'ensemble
+      </button>
+      <button class="menu-item" data-tab="theme">
+        <i class="fa-solid fa-palette"></i> Thème & Couleurs
+      </button>
+      <button class="menu-item" data-tab="projects">
+        <i class="fa-solid fa-cubes"></i> Gestion des Projets
+      </button>
+      <button class="menu-item" data-tab="hero">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Hero & Statistiques
+      </button>
+      <button class="menu-item" data-tab="skills">
+        <i class="fa-solid fa-code"></i> Stack Technique
+      </button>
+      <button class="menu-item" data-tab="contact">
+        <i class="fa-solid fa-address-card"></i> Coordonnées & Réseaux
+      </button>
+      <button class="menu-item" data-tab="messages">
+        <i class="fa-solid fa-inbox"></i> Boîte de Réception <span id="msgCountBadge" class="badge-count">0</span>
+      </button>
+    </nav>
+
+
+    <div class="sidebar-footer">
+      <a href="/" target="_blank" class="btn-site-preview">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Voir le Site Publique
+      </a>
+      <button id="logoutBtn" class="btn-logout" title="Se déconnecter">
+        <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- Admin Main Content Area -->
+  <main class="admin-main">
+    <header class="admin-topbar">
+      <div style="display:flex; align-items:center; gap:0.9rem;">
+        <button id="adminMobileToggle" class="admin-mobile-toggle" aria-label="Toggle Navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1 id="pageTitle" class="topbar-title">Vue d'ensemble du site</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="refreshBtn" class="btn btn-secondary btn-sm">
+          <i class="fa-solid fa-rotate"></i> <span class="hide-mobile">Actualiser API</span>
+        </button>
+        <button id="logoutBtnTop" class="btn btn-sm" style="background:linear-gradient(135deg,#dc2626,#ef4444);color:white;border:none;display:flex;align-items:center;gap:0.4rem;" title="Se déconnecter">
+          <i class="fa-solid fa-right-from-bracket"></i> <span class="hide-mobile">Déconnexion</span>
+        </button>
+      </div>
+    </header>
+
+
+    <div class="admin-content-container">
+
+      <!-- ==========================================
+           TAB 1: OVERVIEW DASHBOARD
+           ========================================== -->
+      <div id="tab-overview" class="admin-tab-content active">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan);">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <div>
+              <span class="metric-label">Projets Actifs</span>
+              <h2 id="metricProjectsCount" class="metric-value">0</h2>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+              <span class="metric-label">Compétences / Stack</span>
+              <h2 id="metricSkillsCount" class="metric-value">0</h2>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon" style="background: rgba(52, 211, 153, 0.15); color: var(--accent-emerald);">
+              <i class="fa-solid fa-inbox"></i>
+            </div>
+            <div>
+              <span class="metric-label">Messages Reçus</span>
+              <h2 id="metricMessagesCount" class="metric-value">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+          <h3 class="card-h3"><i class="fa-solid fa-bolt" style="color:var(--accent-amber);"></i> Accès Rapides d'Édition</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+            Sélectionnez une section ci-dessous pour modifier dynamiquement les données renvoyées par l'API Backend.
+          </p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" onclick="switchTab('projects')">
+              <i class="fa-solid fa-plus"></i> Ajouter un Projet
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchTab('theme')">
+              <i class="fa-solid fa-palette"></i> Changer de Thème
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchTab('hero')">
+              <i class="fa-solid fa-pen"></i> Modifier Titre & Bio
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchTab('messages')">
+              <i class="fa-solid fa-envelope-open-text"></i> Lire les Messages Reçus
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB: THEME & COLOR PALETTES
+           ========================================== -->
+      <div id="tab-theme" class="admin-tab-content">
+
+        <div class="card">
+          <h2 class="card-h2" style="margin-bottom: 1rem;"><i class="fa-solid fa-palette" style="color:var(--accent-cyan);"></i> Personnalisation du Thème & Couleurs</h2>
+          <p style="color: var(--text-muted); margin-bottom: 2rem;">
+            Sélectionnez une palette de couleurs. La modification est enregistrée dans l'API et appliquée en temps réel sur le site public.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <!-- Theme Card 0: Kupa Forest Emerald (Light Mode) -->
+            <div class="theme-select-card" data-theme="theme-kupa" style="background: #ffffff; border: 2px solid var(--accent-primary); border-radius: 16px; padding: 1.5rem; cursor: pointer; box-shadow: var(--shadow-sm);">
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #15803d; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #dcfce7; border: 1px solid #15803d; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #f8fafc; border: 1px solid #cbd5e1; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">Kupa Forest (Light Mode)</h3>
+              <p style="font-size: 0.82rem; color: #475569; margin-top: 0.3rem;">Vert Émeraude Forêt, Fond Clair Épuré</p>
+            </div>
+
+            <!-- Theme Card 1 -->
+            <div class="theme-select-card" data-theme="theme-cyber" style="background: #090c15; border: 2px solid var(--border-color); border-radius: 16px; padding: 1.5rem; cursor: pointer;">
+
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #38bdf8; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #a855f7; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #ec4899; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Cyber Neon (Par défaut)</h3>
+              <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.3rem;">Bleu Cyan, Violet Néon & Rose</p>
+            </div>
+
+            <!-- Theme Card 2 -->
+            <div class="theme-select-card" data-theme="theme-emerald" style="background: #061512; border: 2px solid var(--border-color); border-radius: 16px; padding: 1.5rem; cursor: pointer;">
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #06b6d4; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #3b82f6; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Emerald Code</h3>
+              <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.3rem;">Vert Émeraude, Cyan & Bleu Teal</p>
+            </div>
+
+            <!-- Theme Card 3 -->
+            <div class="theme-select-card" data-theme="theme-sunset" style="background: #140b12; border: 2px solid var(--border-color); border-radius: 16px; padding: 1.5rem; cursor: pointer;">
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #f97316; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #e11d48; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fbbf24; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Sunset Ember</h3>
+              <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.3rem;">Orange Ambré, Corail & Doré</p>
+            </div>
+
+            <!-- Theme Card 4 -->
+            <div class="theme-select-card" data-theme="theme-amethyst" style="background: #0f0a1c; border: 2px solid var(--border-color); border-radius: 16px; padding: 1.5rem; cursor: pointer;">
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #c084fc; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #db2777; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #818cf8; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Royal Amethyst</h3>
+              <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.3rem;">Violet Améthyste, Magenta & Indigo</p>
+            </div>
+
+            <!-- Theme Card 5 -->
+            <div class="theme-select-card" data-theme="theme-midnight" style="background: #050a18; border: 2px solid var(--border-color); border-radius: 16px; padding: 1.5rem; cursor: pointer;">
+              <div style="display:flex; gap:0.5rem; margin-bottom: 1rem;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #60a5fa; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #3b82f6; display: inline-block;"></span>
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #6366f1; display: inline-block;"></span>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff;">Midnight Blue</h3>
+              <p style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.3rem;">Bleu Nuit, Cobalt & Indigo Royal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ==========================================
+           TAB 2: PROJECTS MANAGEMENT (CRUD)
+           ========================================== -->
+      <div id="tab-projects" class="admin-tab-content">
+        <div class="card-header-bar">
+          <h2 class="card-h2">Gestion Dynamique des Projets</h2>
+          <button id="addNewProjectBtn" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus"></i> Nouveau Projet
+          </button>
+        </div>
+
+        <!-- Project Form Card (Add/Edit) -->
+        <div id="projectFormCard" class="card" style="display: none; margin-bottom: 2rem;">
+          <h3 id="projectFormTitle" class="card-h3" style="color: var(--accent-cyan); margin-bottom: 1.2rem;">
+            Ajouter un projet
+          </h3>
+
+          <form id="projectForm">
+            <input type="hidden" id="editProjId" />
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Titre du Projet *</label>
+                <input type="text" id="pTitle" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Catégorie *</label>
+                <select id="pCategory" class="form-control" required>
+                  <option value="mobile">Dev Mobile</option>
+                  <option value="web">Web App</option>
+                  <option value="fullstack">APIs & Backend</option>
+                  <option value="dashboards">Dashboards</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Description Courte (Aperçu) *</label>
+              <input type="text" id="pShortDesc" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Description Détaillée (Modale) *</label>
+              <textarea id="pFullDesc" class="form-control" style="min-height: 80px;" required></textarea>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Chemin / URL Image</label>
+                <input type="text" id="pImage" class="form-control" placeholder="assets/images/loyalty_app.png" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Technologies (séparées par virgule) *</label>
+                <input type="text" id="pTech" class="form-control" placeholder="Flutter, Dart, Firebase" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Fonctionnalités clés (1 par ligne)</label>
+              <textarea id="pFeatures" class="form-control" style="min-height: 70px;"></textarea>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Lien Démo</label>
+                <input type="text" id="pDemoUrl" class="form-control" placeholder="#" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Lien GitHub</label>
+                <input type="text" id="pGithubUrl" class="form-control" placeholder="#" />
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-floppy-disk"></i> Enregistrer via API REST
+              </button>
+              <button type="button" id="cancelProjectBtn" class="btn btn-secondary">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Projects Table Card -->
+        <div class="card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Aperçu</th>
+                  <th>Titre & Description</th>
+                  <th>Catégorie</th>
+                  <th>Technologies</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projectsTableBody">
+                <!-- Populated via API GET /api/admin/data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 3: HERO & STATS EDIT
+           ========================================== -->
+      <div id="tab-hero" class="admin-tab-content">
+        <div class="card">
+          <h2 class="card-h2" style="margin-bottom: 1.5rem;">Édition de la Section Hero (Présentation Principal)</h2>
+
+          <form id="heroForm">
+            <div class="form-group">
+              <label class="form-label">Texte du Badge de Disponibilité</label>
+              <input type="text" id="heroBadgeText" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Titre Principal de Présentation</label>
+              <input type="text" id="heroTitleInput" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Description / Bio globale</label>
+              <textarea id="heroDescInput" class="form-control" style="min-height: 100px;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Extrait de Code (Visualiseur Carte Code)</label>
+              <textarea id="heroCodeInput" class="form-control" style="font-family: 'Fira Code', monospace; min-height: 140px;"></textarea>
+            </div>
+
+            <h3 class="card-h3" style="margin: 2rem 0 1rem 0;">Comptoirs de Statistiques (4 compteurs)</h3>
+            <div id="statsInputsGrid" class="form-grid-2">
+              <!-- Dynamically populated stats inputs -->
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem;">
+              <i class="fa-solid fa-floppy-disk"></i> Enregistrer les modifications Hero (PUT API)
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 4: SKILLS & TECH STACK EDIT
+           ========================================== -->
+      <div id="tab-skills" class="admin-tab-content">
+        <div class="card" style="margin-bottom: 2rem;">
+          <h2 class="card-h2" style="margin-bottom: 1rem;">Ajouter une technologie à la Stack</h2>
+          <form id="addSkillForm" class="form-grid-2" style="align-items: end;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Catégorie</label>
+              <select id="skillCategory" class="form-control" required>
+                <option value="mobile">Développement Mobile</option>
+                <option value="web">Frontend Web</option>
+                <option value="backend">Backend & APIs</option>
+                <option value="devops">Base de données & DevOps</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Nom de la Technologie</label>
+              <input type="text" id="skillName" class="form-control" placeholder="ex: Docker, GraphQL" required />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Niveau de maîtrise</label>
+              <input type="text" id="skillLevel" class="form-control" placeholder="ex: Avancé, Expert" required />
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus"></i> Ajouter Skill
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="skillsContainerGrid" class="skills-manager-grid">
+          <!-- Dynamically populated skills cards with delete buttons -->
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 5: CONTACT INFO & SOCIAL LINKS
+           ========================================== -->
+      <div id="tab-contact" class="admin-tab-content">
+        <div class="card">
+          <h2 class="card-h2" style="margin-bottom: 1.5rem;">Édition des Coordonnées & Réseaux Sociaux</h2>
+
+          <form id="contactInfoForm">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Adresse Email de Contact</label>
+                <input type="email" id="infoEmail" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Disponibilité / Localisation</label>
+                <input type="text" id="infoLocation" class="form-control" required />
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Lien Profil GitHub</label>
+                <input type="text" id="infoGithub" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Lien Profil LinkedIn</label>
+                <input type="text" id="infoLinkedin" class="form-control" required />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem;">
+              <i class="fa-solid fa-floppy-disk"></i> Mettre à jour les coordonnées (PUT API)
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 6: INBOX MESSAGES RECEIVED
+           ========================================== -->
+      <div id="tab-messages" class="admin-tab-content">
+        <div class="card">
+          <h2 class="card-h2" style="margin-bottom: 1.5rem;">Boîte de Réception des Messages Client</h2>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Expéditeur & Email</th>
+                  <th>Projet Visé</th>
+                  <th>Message</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="messagesTableBody">
+                <!-- Populated dynamically via GET /api/admin/messages -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Admin Notification Toast -->
+  <div id="adminToastContainer" class="admin-toast-container"></div>
+
+  <!-- Admin JavaScript -->
+  <script src="admin.js"></script>
+</body>
+</html>

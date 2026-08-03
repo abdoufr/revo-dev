@@ -1,0 +1,243 @@
+{
+  "hero": {
+    "badgeText": "Disponible pour opportunités & projets freelance",
+    "title": "Conception & Developpement Multi-Plateformes (Full-Stack Express API)",
+    "description": "Bienvenue sur mon site vitrine. Découvrez l'ensemble de mes réalisations techniques : applications mobiles performantes (Flutter), plateformes web réactives (React/Node) et architectures d'APIs robustes.",
+    "codeSnippet": "class ProjectShowcase {\n  final String stack = 'Flutter + Web & Backend';\n  final bool qualityDriven = true;\n\n  Future<Solution> buildProduct() async {\n    return Solution.optimize(\n      performance: '100%',\n      userExperience: 'Fluid & Seamless'\n    );\n  }\n}"
+  },
+  "stats": [
+    {
+      "id": "projects_count",
+      "number": "4+",
+      "label": "Projets Principaux"
+    },
+    {
+      "id": "tech_count",
+      "number": "10+",
+      "label": "Technologies Maîtrisées"
+    },
+    {
+      "id": "code_quality",
+      "number": "100%",
+      "label": "Code Moderne & Adaptatif"
+    },
+    {
+      "id": "support",
+      "number": "24/7",
+      "label": "Réactivité & Suivi"
+    }
+  ],
+  "contactInfo": {
+    "email": "contact@abderrahmane-dev.com",
+    "location": "Remote & Sur place",
+    "github": "https://github.com",
+    "linkedin": "https://linkedin.com"
+  },
+  "projects": [
+    {
+      "id": "revo-loyalty",
+      "title": "Revo Loyalty Mobile App",
+      "category": "mobile",
+      "categoryLabel": "Dev Mobile",
+      "shortDesc": "Application mobile cross-platform de fidélisation client en temps réel avec géolocalisation et QR codes dynamiques.",
+      "fullDesc": "Revo Loyalty est une solution mobile complète conçue avec Flutter & Dart. Elle permet aux clients de cumuler des points de fidélité via scannage QR, de suivre leurs récompenses en direct et d'interagir avec les commerces locaux grâce aux services de géolocalisation en arrière-plan.",
+      "image": "/assets/images/loyalty_app.png",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Geolocator",
+        "State Management",
+        "Provider"
+      ],
+      "features": [
+        "Système de récompenses et points instantanés",
+        "Scannage et génération de QR Code sécurisé",
+        "Service de géolocalisation en arrière-plan",
+        "Interface Client et Dashboard Admin intégrés",
+        "Notifications push personnalisées"
+      ],
+      "demoUrl": "#",
+      "githubUrl": "#"
+    },
+    {
+      "id": "ecommerce-platform",
+      "title": "E-Commerce Fullstack Platform",
+      "category": "web",
+      "categoryLabel": "Web App",
+      "shortDesc": "Plateforme web e-commerce ultra-rapide avec gestion de panier en direct et passerelle de paiement sécurisée.",
+      "fullDesc": "Une application web e-commerce moderne intégrant un catalogue de produits interactif, une recherche instantanée avec filtres avancés, un panier persistant et une passerelle de paiement automatisée.",
+      "image": "/assets/images/ecommerce.png",
+      "technologies": [
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "TailwindCSS",
+        "Stripe API"
+      ],
+      "features": [
+        "Architecture API RESTful performante",
+        "Panier réactif et paiement sécurisé",
+        "Gestion d'inventaire en temps réel",
+        "Design entièrement adaptatif et dark mode"
+      ],
+      "demoUrl": "#",
+      "githubUrl": "#"
+    },
+    {
+      "id": "analytics-dashboard",
+      "title": "Software Analytics & Admin Suite",
+      "category": "dashboards",
+      "categoryLabel": "Dashboards",
+      "shortDesc": "Tableau de bord de suivi de métriques et d'ingrédients/produits en temps réel pour administrateurs.",
+      "fullDesc": "Un dashboard administrateur haut de gamme offrant des graphiques interactifs en temps réel, la gestion des utilisateurs, la traçabilité des stocks d'ingrédients et la génération d'exportations de données PDF/Excel.",
+      "image": "/assets/images/analytics.png",
+      "technologies": [
+        "Vue.js",
+        "TypeScript",
+        "Chart.js",
+        "PostgreSQL",
+        "TailwindCSS"
+      ],
+      "features": [
+        "Visualisation de métriques en temps réel",
+        "Gestion granulaire des rôles et permissions",
+        "Graphiques interactifs et filtres de dates",
+        "Exportation automatique de rapports"
+      ],
+      "demoUrl": "#",
+      "githubUrl": "#"
+    },
+    {
+      "id": "ai-api-gateway",
+      "title": "Developer AI Assistant API Gateway",
+      "category": "fullstack",
+      "categoryLabel": "APIs & Backend",
+      "shortDesc": "Microservice backend haute performance pour l'intégration de modèles d'IA et le traitement asynchrone.",
+      "fullDesc": "Une passerelle API sécurisée et évolutive développée pour orchestrer des appels de modèles d'IA, mettre en cache les requêtes fréquentes via Redis, et fournir un rate-limiting robuste pour applications web et mobile.",
+      "image": "/assets/images/api.png",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "Docker",
+        "Redis",
+        "OpenAI API",
+        "PostgreSQL"
+      ],
+      "features": [
+        "Traitement asynchrone ultra-rapide avec FastAPI",
+        "Système de mise en cache Redis et limitation de débit",
+        "Conteneurisation Docker complète et CI/CD",
+        "Documentation Swagger / OpenAPI générée automatiquement"
+      ],
+      "demoUrl": "#",
+      "githubUrl": "#"
+    }
+  ],
+  "skills": [
+    {
+      "category": "mobile",
+      "categoryTitle": "Développement Mobile",
+      "icon": "fa-mobile-screen-button",
+      "items": [
+        {
+          "name": "Flutter",
+          "level": "Avancé"
+        },
+        {
+          "name": "Dart",
+          "level": "Avancé"
+        },
+        {
+          "name": "State Management (Provider/Riverpod)",
+          "level": "Maîtrisé"
+        },
+        {
+          "name": "Services Arrière-plan (Geolocator)",
+          "level": "Maîtrisé"
+        }
+      ]
+    },
+    {
+      "category": "web",
+      "categoryTitle": "Frontend Web",
+      "icon": "fa-globe",
+      "items": [
+        {
+          "name": "HTML5 & CSS3",
+          "level": "Expert"
+        },
+        {
+          "name": "JavaScript ES6+",
+          "level": "Avancé"
+        },
+        {
+          "name": "React.js / Vue.js",
+          "level": "Avancé"
+        },
+        {
+          "name": "TailwindCSS & Responsive",
+          "level": "Expert"
+        }
+      ]
+    },
+    {
+      "category": "backend",
+      "categoryTitle": "Backend & APIs",
+      "icon": "fa-server",
+      "items": [
+        {
+          "name": "Node.js & Express",
+          "level": "Avancé"
+        },
+        {
+          "name": "Python & FastAPI",
+          "level": "Maîtrisé"
+        },
+        {
+          "name": "APIs RESTful & JSON",
+          "level": "Expert"
+        },
+        {
+          "name": "Auth & JWT",
+          "level": "Maîtrisé"
+        }
+      ]
+    },
+    {
+      "category": "devops",
+      "categoryTitle": "Base de données & DevOps",
+      "icon": "fa-database",
+      "items": [
+        {
+          "name": "Firebase & Firestore",
+          "level": "Avancé"
+        },
+        {
+          "name": "PostgreSQL / MongoDB",
+          "level": "Maîtrisé"
+        },
+        {
+          "name": "Docker",
+          "level": "Notions"
+        },
+        {
+          "name": "Git & GitHub",
+          "level": "Expert"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-1",
+      "senderName": "Sophie Laurent",
+      "senderEmail": "sophie@techstudio.io",
+      "projectType": "mobile",
+      "message": "Bonjour ! Nous recherchons un développeur Flutter pour faire évoluer notre application mobile de livraison. Êtes-vous disponible ?",
+      "createdAt": "2026-08-02T14:30:00Z"
+    }
+  ],
+  "theme": "theme-emerald"
+}
