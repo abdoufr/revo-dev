@@ -195,6 +195,70 @@ function setTheme(theme) {
   }
 }
 
+// Translation helper for dynamic backend strings & categories
+function translateText(text) {
+  if (!text || currentLang === 'fr') return text;
+
+  const dictionary = {
+    en: {
+      "Disponible pour opportunités & projets freelance": "Available for freelance opportunities & projects",
+      "Conception & Developpement Multi-Plateformes (Full-Stack Express API)": "Multi-Platform Design & Development (Full-Stack Express API)",
+      "Bienvenue sur mon site vitrine. Découvrez l'ensemble de mes réalisations techniques : applications mobiles performantes (Flutter), plateformes web réactives (React/Node) et architectures d'APIs robustes.": "Welcome to my showcase website. Discover my technical projects: high-performance mobile apps (Flutter), responsive web platforms (React/Node), and robust API architectures.",
+      "Projets Principaux": "Featured Projects",
+      "Technologies Maîtrisées": "Mastered Technologies",
+      "Code Moderne & Adaptatif": "Modern & Adaptive Code",
+      "Réactivité & Suivi": "Responsiveness & Support",
+      "Remote & Sur place": "Remote & On-site",
+      "Dev Mobile": "Mobile Dev",
+      "Web App": "Web App",
+      "APIs & Backend": "APIs & Backend",
+      "Dashboards": "Dashboards",
+      "mobile": "Mobile Dev",
+      "web": "Web App",
+      "fullstack": "APIs & Backend",
+      "dashboards": "Dashboards",
+      "Développement Mobile": "Mobile Development",
+      "Frontend Web": "Frontend Web",
+      "Backend & APIs": "Backend & APIs",
+      "Base de données & DevOps": "Database & DevOps",
+      "Avancé": "Advanced",
+      "Maîtrisé": "Proficient",
+      "Expert": "Expert",
+      "Notions": "Basics",
+      "Projet": "Project"
+    },
+    ar: {
+      "Disponible pour opportunités & projets freelance": "متاح للفرص والمشاريع الحرة",
+      "Conception & Developpement Multi-Plateformes (Full-Stack Express API)": "تصميم وتطوير متعدد المنصات (Full-Stack Express API)",
+      "Bienvenue sur mon site vitrine. Découvrez l'ensemble de mes réalisations techniques : applications mobiles performantes (Flutter), plateformes web réactives (React/Node) et architectures d'APIs robustes.": "مرحباً بكم في موقعي الشخصي. اكتشفوا أعمالي التقنية: تطبيقات هاتف عالية الأداء (Flutter)، منصات ويب تفاعلية (React/Node) وبنيات برمجية robust.",
+      "Projets Principaux": "المشاريع الرئيسية",
+      "Technologies Maîtrisées": "التقنيات المتقنة",
+      "Code Moderne & Adaptatif": "كود حديث ومتكيف",
+      "Réactivité & Suivi": "سرعة استجابة ومتابعة",
+      "Remote & Sur place": "عن بعد وفي الموقع",
+      "Dev Mobile": "تطبيقات الهاتف",
+      "Web App": "تطبيقات الويب",
+      "APIs & Backend": "الواجهات البرمجية APIs",
+      "Dashboards": "لوحات التحكم",
+      "mobile": "تطبيقات الهاتف",
+      "web": "تطبيقات الويب",
+      "fullstack": "الواجهات البرمجية APIs",
+      "dashboards": "لوحات التحكم",
+      "Développement Mobile": "تطوير تطبيقات الهاتف",
+      "Frontend Web": "تطوير واجهات الويب",
+      "Backend & APIs": "الأنظمة الخلفية والـ APIs",
+      "Base de données & DevOps": "قواعد البيانات و DevOps",
+      "Avancé": "متقدم",
+      "Maîtrisé": "متمكن",
+      "Expert": "خبير",
+      "Notions": "أساسيات",
+      "Projet": "مشروع"
+    }
+  };
+
+  return (dictionary[currentLang] && dictionary[currentLang][text]) || text;
+}
+
 // Apply Language
 function setLanguage(lang) {
   if (!translations[lang]) lang = "fr";
@@ -221,7 +285,11 @@ function setLanguage(lang) {
     }
   });
 
+  renderHero();
+  renderStats();
   renderProjects();
+  renderSkills();
+  renderContactInfo();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -389,15 +457,15 @@ function renderHero() {
   const heroCodeSnippet = document.getElementById("heroCodeSnippet");
 
   if (siteData.hero.badgeText && heroBadge) {
-    heroBadge.innerHTML = `<span class="status-dot"></span> ${siteData.hero.badgeText}`;
+    heroBadge.innerHTML = `<span class="status-dot"></span> ${translateText(siteData.hero.badgeText)}`;
   }
 
   if (siteData.hero.title && heroTitle) {
-    heroTitle.innerHTML = siteData.hero.title;
+    heroTitle.innerHTML = translateText(siteData.hero.title);
   }
 
   if (siteData.hero.description && heroDesc) {
-    heroDesc.innerText = siteData.hero.description;
+    heroDesc.innerText = translateText(siteData.hero.description);
   }
 
   if (siteData.hero.codeSnippet && heroCodeSnippet) {
@@ -414,7 +482,7 @@ function renderStats() {
   statsStrip.innerHTML = siteData.stats.map(s => `
     <div class="stat-item">
       <span class="stat-number">${s.number}</span>
-      <span class="stat-label">${s.label}</span>
+      <span class="stat-label">${translateText(s.label)}</span>
     </div>
   `).join('');
 }
@@ -466,7 +534,7 @@ function renderProjects() {
     <div class="project-card" data-id="${project.id}">
       <div class="project-thumbnail-wrapper">
         <img src="${imgSrc}" alt="${project.title || 'Projet'}" class="project-thumbnail" onError="this.onerror=null; this.src='/assets/images/loyalty_app.png';" />
-        <span class="category-tag">${project.categoryLabel || project.category || "Projet"}</span>
+        <span class="category-tag">${translateText(project.categoryLabel || project.category || "Projet")}</span>
       </div>
       <div class="project-body">
         <h3 class="project-title">${project.title || 'Projet'}</h3>
@@ -504,7 +572,7 @@ function renderSkills() {
     <div class="tech-category-card">
       <div class="category-icon-title">
         <div class="category-icon"><i class="fa-solid ${cat.icon || 'fa-code'}"></i></div>
-        <h3 style="font-size: 1.15rem; font-weight: 700;">${cat.categoryTitle}</h3>
+        <h3 style="font-size: 1.15rem; font-weight: 700;">${translateText(cat.categoryTitle)}</h3>
       </div>
       <div class="tech-items-list">
         ${(cat.items || []).map(item => `
@@ -512,7 +580,7 @@ function renderSkills() {
             <span style="font-size: 0.92rem; font-weight: 500; display:flex; align-items:center; gap:0.5rem;">
               <i class="fa-solid fa-angle-right" style="color:var(--accent-cyan);"></i> ${item.name}
             </span>
-            <span class="tech-level">${item.level}</span>
+            <span class="tech-level">${translateText(item.level)}</span>
           </div>
         `).join('')}
       </div>
@@ -528,7 +596,7 @@ function renderContactInfo() {
   const linkedinLink = document.getElementById("linkedinLink");
 
   if (siteData.contactInfo.email && emailElem) emailElem.innerText = siteData.contactInfo.email;
-  if (siteData.contactInfo.location && locElem) locElem.innerText = siteData.contactInfo.location;
+  if (siteData.contactInfo.location && locElem) locElem.innerText = translateText(siteData.contactInfo.location);
   if (siteData.contactInfo.github && githubLink) githubLink.href = siteData.contactInfo.github;
   if (siteData.contactInfo.linkedin && linkedinLink) linkedinLink.href = siteData.contactInfo.linkedin;
 }
@@ -550,7 +618,7 @@ window.openProjectModal = function(projectId) {
 
   if (modalImg) modalImg.src = imgSrc;
   if (modalTitle) modalTitle.innerText = project.title || "";
-  if (modalCategory) modalCategory.innerText = project.categoryLabel || project.category || "Projet";
+  if (modalCategory) modalCategory.innerText = translateText(project.categoryLabel || project.category || "Projet");
   if (modalDesc) modalDesc.innerText = project.fullDesc || project.shortDesc || "";
 
   if (modalTechBadges) {
