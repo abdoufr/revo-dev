@@ -547,9 +547,6 @@ function renderProjects() {
             ${learnMoreBtnText}
           </button>
           <div style="display:flex; gap:0.6rem;">
-            <a href="${project.githubUrl || '#'}" class="icon-link" title="Code GitHub" target="_blank">
-              <i class="fa-brands fa-github"></i>
-            </a>
             <a href="${project.demoUrl || '#'}" class="icon-link" title="Démo en direct" target="_blank">
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
