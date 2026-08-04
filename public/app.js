@@ -13,6 +13,216 @@ let siteData = {
 
 let currentCategory = "all";
 let searchQuery = "";
+let currentLang = localStorage.getItem("lang") || "fr";
+let currentTheme = localStorage.getItem("theme") ||
+  (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+// ==========================================
+// TRANSLATIONS DICTIONARY (FR / EN / AR)
+// ==========================================
+const translations = {
+  fr: {
+    nav_home: "Accueil",
+    nav_projects: "Réalisations",
+    nav_tech: "Stack Technique",
+    nav_contact: "Contact",
+    cta_contact: '<i class="fa-regular fa-paper-plane"></i> Me Contacter',
+
+    hero_explore_btn: '<i class="fa-solid fa-laptop-code"></i> Explorer mes Projets',
+    hero_discuss_btn: '<i class="fa-solid fa-envelope"></i> Discuter d\'un projet',
+
+    projects_tag: '<i class="fa-solid fa-cubes"></i> Mes Réalisations',
+    projects_title: 'Découvrez mes <span class="gradient-text">Projets Récents</span>',
+    projects_subtitle: 'Parcourez mes applications mobile, web et backends. Filtrez par catégorie ou recherchez une technologie spécifique.',
+    search_placeholder: 'Rechercher un projet, une technologie (ex: Flutter, React, API)...',
+
+    filter_all: 'Tous les projets',
+    filter_mobile: 'Dev Mobile',
+    filter_web: 'Web Apps',
+    filter_fullstack: 'APIs & Backend',
+    filter_dashboards: 'Dashboards',
+
+    no_projects_found: 'Aucun projet trouvé',
+    learn_more: '<i class="fa-solid fa-circle-info"></i> En savoir plus',
+
+    tech_tag: '<i class="fa-solid fa-code"></i> Compétences',
+    tech_title: 'Stack Technique <span class="gradient-text">& Outils</span>',
+    tech_subtitle: 'L\'ensemble des technologies que j\'utilise au quotidien pour concevoir des applications performantes.',
+
+    contact_tag: '<i class="fa-regular fa-paper-plane"></i> Prise de Contact',
+    contact_title: 'Un projet en tête ? <span class="gradient-text">Contactez-moi</span>',
+    contact_subtitle: 'Vous souhaitez développer une application mobile, créer un site web ou discuter d\'une collaboration ? Remplissez le formulaire ou envoyez-moi directement un message.',
+    contact_info_title: 'Discutons de vos besoins',
+    contact_info_desc: 'Je suis disponible pour étudier vos projets de développement, vous apporter un conseil technique ou collaborer sur vos idées.',
+    contact_email_label: 'Email de contact',
+    contact_location_label: 'Disponibilité',
+    contact_social_label: 'Retrouvez mes travaux',
+
+    form_name_label: 'Votre Nom / Entreprise *',
+    form_name_placeholder: 'Ex: Jean Dupont',
+    form_email_label: 'Votre Adresse Email *',
+    form_email_placeholder: 'ex: jean@entreprise.com',
+    form_type_label: 'Type de Projet',
+    form_type_mobile: 'Développement Application Mobile (Flutter)',
+    form_type_web: 'Création de Site Web / Web App',
+    form_type_api: 'Développement Backend & API',
+    form_type_other: 'Autre / Demande d\'information',
+    form_msg_label: 'Détails de votre message *',
+    form_msg_placeholder: 'Décrivez votre projet, vos objectifs et vos délais...',
+    form_submit_btn: '<i class="fa-solid fa-paper-plane"></i> Envoyer le message',
+
+    footer_copy: '© 2026 Revo Dev. Tous droits réservés. Présentation de travaux de développement logiciels & applications.'
+  },
+  en: {
+    nav_home: "Home",
+    nav_projects: "Projects",
+    nav_tech: "Tech Stack",
+    nav_contact: "Contact",
+    cta_contact: '<i class="fa-regular fa-paper-plane"></i> Contact Me',
+
+    hero_explore_btn: '<i class="fa-solid fa-laptop-code"></i> Explore My Projects',
+    hero_discuss_btn: '<i class="fa-solid fa-envelope"></i> Discuss a Project',
+
+    projects_tag: '<i class="fa-solid fa-cubes"></i> Portfolio Showcase',
+    projects_title: 'Explore My <span class="gradient-text">Recent Projects</span>',
+    projects_subtitle: 'Browse mobile apps, web applications, and backends. Filter by category or search by specific technology.',
+    search_placeholder: 'Search project or technology (e.g., Flutter, React, API)...',
+
+    filter_all: 'All Projects',
+    filter_mobile: 'Mobile Dev',
+    filter_web: 'Web Apps',
+    filter_fullstack: 'APIs & Backend',
+    filter_dashboards: 'Dashboards',
+
+    no_projects_found: 'No projects found',
+    learn_more: '<i class="fa-solid fa-circle-info"></i> Learn More',
+
+    tech_tag: '<i class="fa-solid fa-code"></i> Skills & Expertise',
+    tech_title: 'Tech Stack <span class="gradient-text">& Tools</span>',
+    tech_subtitle: 'The technologies and tools I use daily to build high-performance applications.',
+
+    contact_tag: '<i class="fa-regular fa-paper-plane"></i> Get In Touch',
+    contact_title: 'Have a project in mind? <span class="gradient-text">Contact Me</span>',
+    contact_subtitle: 'Looking to build a mobile app, web application, or discuss a collaboration? Fill out the form or send me a direct message.',
+    contact_info_title: 'Let\'s discuss your project',
+    contact_info_desc: 'I am available to discuss development projects, provide technical consulting, or collaborate on your ideas.',
+    contact_email_label: 'Contact Email',
+    contact_location_label: 'Availability',
+    contact_social_label: 'Find my work',
+
+    form_name_label: 'Your Name / Company *',
+    form_name_placeholder: 'e.g., John Smith',
+    form_email_label: 'Your Email Address *',
+    form_email_placeholder: 'e.g., john@company.com',
+    form_type_label: 'Project Type',
+    form_type_mobile: 'Mobile App Development (Flutter)',
+    form_type_web: 'Website / Web Application',
+    form_type_api: 'Backend & API Development',
+    form_type_other: 'Other / General Inquiry',
+    form_msg_label: 'Message Details *',
+    form_msg_placeholder: 'Describe your project, goals, and timeline...',
+    form_submit_btn: '<i class="fa-solid fa-paper-plane"></i> Send Message',
+
+    footer_copy: '© 2026 Revo Dev. All rights reserved. Software & Application Showcase.'
+  },
+  ar: {
+    nav_home: "الرئيسية",
+    nav_projects: "الأعمال",
+    nav_tech: "التقنيات",
+    nav_contact: "تواصل معي",
+    cta_contact: '<i class="fa-regular fa-paper-plane"></i> اتصل بي',
+
+    hero_explore_btn: '<i class="fa-solid fa-laptop-code"></i> استكشف مشاريعي',
+    hero_discuss_btn: '<i class="fa-solid fa-envelope"></i> مناقشة مشروع',
+
+    projects_tag: '<i class="fa-solid fa-cubes"></i> معرض الأعمال',
+    projects_title: 'استكشف <span class="gradient-text">أحدث المشاريع</span>',
+    projects_subtitle: 'تصفح تطبيقات الهاتف، الويب والأنظمة الخلفية. يمكنك التصفية حسب الفئة أو البحث عن تقنية معينة.',
+    search_placeholder: 'ابحث عن مشروع أو تقنية (مثال: Flutter, React, API)...',
+
+    filter_all: 'كل المشاريع',
+    filter_mobile: 'تطبيقات الهاتف',
+    filter_web: 'تطبيقات الويب',
+    filter_fullstack: 'الواجهات البرمجية APIs',
+    filter_dashboards: 'لوحات التحكم',
+
+    no_projects_found: 'لم يتم العثور على مشاريع',
+    learn_more: '<i class="fa-solid fa-circle-info"></i> التفاصيل',
+
+    tech_tag: '<i class="fa-solid fa-code"></i> المهارات والتقنيات',
+    tech_title: 'التقنيات <span class="gradient-text">والأدوات</span>',
+    tech_subtitle: 'التقنيات والأدوات التي أستخدمها يومياً لبناء تطبيقات عالية الأداء.',
+
+    contact_tag: '<i class="fa-regular fa-paper-plane"></i> تواصل معي',
+    contact_title: 'لديك فكرة مشروع؟ <span class="gradient-text">تواصل معي</span>',
+    contact_subtitle: 'هل ترغب في تطوير تطبيق هاتف، موقع ويب، أو مناقشة تعاون؟ املأ النموذج أو أرسل رسالة مباشرة.',
+    contact_info_title: 'لنناقش متطلباتك',
+    contact_info_desc: 'أنا متاح لدراسة مشاريعك البرمجية، تقديم استشارات تقنية، أو التعاون في أفكارك.',
+    contact_email_label: 'البريد الإلكتروني',
+    contact_location_label: 'التوفر',
+    contact_social_label: 'تابع أعمالي على',
+
+    form_name_label: 'الاسم / الشركة *',
+    form_name_placeholder: 'مثال: أحمد محمد',
+    form_email_label: 'البريد الإلكتروني *',
+    form_email_placeholder: 'مثال: ahmed@company.com',
+    form_type_label: 'نوع المشروع',
+    form_type_mobile: 'تطوير تطبيق هاتف (Flutter)',
+    form_type_web: 'تطوير موقع أو تطبيق ويب',
+    form_type_api: 'تطوير واجهات خلفية APIs',
+    form_type_other: 'استفسار عام / آخر',
+    form_msg_label: 'تفاصيل الرسالة *',
+    form_msg_placeholder: 'اشرح مشروعك، أهدافك، والجدول الزمني...',
+    form_submit_btn: '<i class="fa-solid fa-paper-plane"></i> إرسال الرسالة',
+
+    footer_copy: '© 2026 Revo Dev. جميع الحقوق محفوظة. معرض تطوير البرمجيات والتطبيقات.'
+  }
+};
+
+// Apply Theme
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem("theme", theme);
+  document.documentElement.setAttribute("data-theme", theme);
+
+  const themeIcon = document.getElementById("themeIcon");
+  if (themeIcon) {
+    if (theme === "dark") {
+      themeIcon.className = "fa-solid fa-sun";
+    } else {
+      themeIcon.className = "fa-solid fa-moon";
+    }
+  }
+}
+
+// Apply Language
+function setLanguage(lang) {
+  if (!translations[lang]) lang = "fr";
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === "ar" ? "rtl" : "ltr");
+
+  const langSelect = document.getElementById("langSelect");
+  if (langSelect) langSelect.value = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (translations[lang] && translations[lang][key]) {
+      el.placeholder = translations[lang][key];
+    }
+  });
+
+  renderProjects();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector(".header");
@@ -23,8 +233,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const copyEmailBtn = document.getElementById("copyEmailBtn");
 
+  // Initialize theme & language
+  setTheme(currentTheme);
+  setLanguage(currentLang);
+
+  // Theme toggle listener
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      setTheme(nextTheme);
+    });
+  }
+
+  // Language select listener
+  const langSelect = document.getElementById("langSelect");
+  if (langSelect) {
+    langSelect.addEventListener("change", (e) => {
+      setLanguage(e.target.value);
+    });
+  }
+
   // Fetch initial data from REST API endpoint
   fetchSiteData();
+
 
   // Mobile Nav Hamburger Toggle
   const mobileNavToggle = document.getElementById("mobileNavToggle");
@@ -213,15 +445,17 @@ function renderProjects() {
   });
 
   if (filtered.length === 0) {
+    const noResultsText = (translations[currentLang] && translations[currentLang].no_projects_found) || "Aucun projet trouvé";
     projectsGrid.innerHTML = `
       <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
         <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
-        <h3>Aucun projet trouvé</h3>
-        <p>Projets rechargeables dynamiquement depuis le Panneau d'Administration /admin.</p>
+        <h3>${noResultsText}</h3>
       </div>
     `;
     return;
   }
+
+  const learnMoreBtnText = (translations[currentLang] && translations[currentLang].learn_more) || '<i class="fa-solid fa-circle-info"></i> En savoir plus';
 
   const cardsHtml = filtered.map(project => {
     const imgSrc = project.image ? (project.image.startsWith('/') ? project.image : '/' + project.image) : '/assets/images/loyalty_app.png';
@@ -242,7 +476,7 @@ function renderProjects() {
         </div>
         <div class="project-footer">
           <button class="btn btn-secondary btn-sm" onclick="openProjectModal('${project.id}')">
-            <i class="fa-solid fa-circle-info"></i> En savoir plus
+            ${learnMoreBtnText}
           </button>
           <div style="display:flex; gap:0.6rem;">
             <a href="${project.githubUrl || '#'}" class="icon-link" title="Code GitHub" target="_blank">

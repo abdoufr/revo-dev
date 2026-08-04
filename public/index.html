@@ -30,22 +30,36 @@
 
       <nav>
         <ul id="navLinks" class="nav-links">
-          <li><a href="#hero" class="nav-link active">Accueil</a></li>
-          <li><a href="#projets" class="nav-link">Réalisations</a></li>
-          <li><a href="#technologies" class="nav-link">Stack Technique</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#hero" class="nav-link active" data-i18n="nav_home">Accueil</a></li>
+          <li><a href="#projets" class="nav-link" data-i18n="nav_projects">Réalisations</a></li>
+          <li><a href="#technologies" class="nav-link" data-i18n="nav_tech">Stack Technique</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
         </ul>
       </nav>
 
-      <div style="display: flex; gap: 0.75rem; align-items: center;">
-        <a href="#contact" class="btn btn-primary btn-sm cta-desktop-only">
+      <div class="nav-controls">
+        <!-- Language Selector -->
+        <div class="lang-select-wrapper">
+          <select id="langSelect" class="lang-select" aria-label="Sélectionner la langue">
+            <option value="fr">🇫🇷 FR</option>
+            <option value="en">🇬🇧 EN</option>
+            <option value="ar">🇩🇿 AR</option>
+          </select>
+          <i class="fa-solid fa-chevron-down lang-select-icon"></i>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Changer le thème (Sombre/Clair)" aria-label="Toggle Theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <a href="#contact" class="btn btn-primary btn-sm cta-desktop-only" data-i18n="cta_contact">
           <i class="fa-regular fa-paper-plane"></i> Me Contacter
         </a>
         <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Menu Mobile">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
-
 
     </div>
   </header>
@@ -71,10 +85,10 @@
           </p>
 
           <div class="hero-actions">
-            <a href="#projets" class="btn btn-primary">
+            <a href="#projets" class="btn btn-primary" data-i18n="hero_explore_btn">
               <i class="fa-solid fa-laptop-code"></i> Explorer mes Projets
             </a>
-            <a href="#contact" class="btn btn-secondary">
+            <a href="#contact" class="btn btn-secondary" data-i18n="hero_discuss_btn">
               <i class="fa-solid fa-envelope"></i> Discuter d'un projet
             </a>
           </div>
@@ -109,9 +123,9 @@
   <section id="projets" class="projects-section">
     <div class="container">
       <div style="text-align: center;">
-        <span class="section-tag"><i class="fa-solid fa-cubes"></i> Mes Réalisations</span>
-        <h2 class="section-title">Découvrez mes <span class="gradient-text">Projets Récents</span></h2>
-        <p class="section-subtitle">
+        <span class="section-tag" data-i18n="projects_tag"><i class="fa-solid fa-cubes"></i> Mes Réalisations</span>
+        <h2 class="section-title" data-i18n="projects_title">Découvrez mes <span class="gradient-text">Projets Récents</span></h2>
+        <p class="section-subtitle" data-i18n="projects_subtitle">
           Parcourez mes applications mobile, web et backends. Filtrez par catégorie ou recherchez une technologie spécifique.
         </p>
       </div>
@@ -120,15 +134,15 @@
       <div class="controls-bar">
         <div class="search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un projet, une technologie (ex: Flutter, React, API)..." />
+          <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un projet, une technologie (ex: Flutter, React, API)..." data-i18n-placeholder="search_placeholder" />
         </div>
 
         <div class="filter-pills">
-          <button class="filter-btn active" data-filter="all">Tous les projets</button>
-          <button class="filter-btn" data-filter="mobile">Dev Mobile</button>
-          <button class="filter-btn" data-filter="web">Web Apps</button>
-          <button class="filter-btn" data-filter="fullstack">APIs & Backend</button>
-          <button class="filter-btn" data-filter="dashboards">Dashboards</button>
+          <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Tous les projets</button>
+          <button class="filter-btn" data-filter="mobile" data-i18n="filter_mobile">Dev Mobile</button>
+          <button class="filter-btn" data-filter="web" data-i18n="filter_web">Web Apps</button>
+          <button class="filter-btn" data-filter="fullstack" data-i18n="filter_fullstack">APIs & Backend</button>
+          <button class="filter-btn" data-filter="dashboards" data-i18n="filter_dashboards">Dashboards</button>
         </div>
       </div>
 
@@ -143,9 +157,9 @@
   <section id="technologies" class="tech-section">
     <div class="container">
       <div style="text-align: center;">
-        <span class="section-tag"><i class="fa-solid fa-code"></i> Compétences</span>
-        <h2 class="section-title">Stack Technique <span class="gradient-text">& Outils</span></h2>
-        <p class="section-subtitle">
+        <span class="section-tag" data-i18n="tech_tag"><i class="fa-solid fa-code"></i> Compétences</span>
+        <h2 class="section-title" data-i18n="tech_title">Stack Technique <span class="gradient-text">& Outils</span></h2>
+        <p class="section-subtitle" data-i18n="tech_subtitle">
           L'ensemble des technologies que j'utilise au quotidien pour concevoir des applications performantes.
         </p>
       </div>
@@ -161,9 +175,9 @@
   <section id="contact" class="contact-section">
     <div class="container">
       <div style="text-align: center;">
-        <span class="section-tag"><i class="fa-regular fa-paper-plane"></i> Prise de Contact</span>
-        <h2 class="section-title">Un projet en tête ? <span class="gradient-text">Contactez-moi</span></h2>
-        <p class="section-subtitle">
+        <span class="section-tag" data-i18n="contact_tag"><i class="fa-regular fa-paper-plane"></i> Prise de Contact</span>
+        <h2 class="section-title" data-i18n="contact_title">Un projet en tête ? <span class="gradient-text">Contactez-moi</span></h2>
+        <p class="section-subtitle" data-i18n="contact_subtitle">
           Vous souhaitez développer une application mobile, créer un site web ou discuter d'une collaboration ? Remplissez le formulaire ou envoyez-moi directement un message.
         </p>
       </div>
@@ -171,8 +185,8 @@
       <div class="contact-grid">
         <!-- Contact Info Card -->
         <div class="contact-info-card">
-          <h3 class="contact-info-title">Discutons de vos besoins</h3>
-          <p class="contact-info-desc">
+          <h3 class="contact-info-title" data-i18n="contact_info_title">Discutons de vos besoins</h3>
+          <p class="contact-info-desc" data-i18n="contact_info_desc">
             Je suis disponible pour étudier vos projets de développement, vous apporter un conseil technique ou collaborer sur vos idées.
           </p>
 
@@ -180,7 +194,7 @@
             <div class="method-item">
               <div class="method-icon"><i class="fa-regular fa-envelope"></i></div>
               <div>
-                <span class="method-label">Email de contact</span>
+                <span class="method-label" data-i18n="contact_email_label">Email de contact</span>
                 <div class="method-value">
                   <span id="contactEmail">contact@abderrahmane-dev.com</span>
                   <button id="copyEmailBtn" class="copy-btn" title="Copier l'email">
@@ -195,14 +209,14 @@
                 <i class="fa-solid fa-location-dot"></i>
               </div>
               <div>
-                <span class="method-label">Disponibilité</span>
+                <span class="method-label" data-i18n="contact_location_label">Disponibilité</span>
                 <div id="contactLocation" class="method-value">Remote & Sur place</div>
               </div>
             </div>
           </div>
 
           <div style="margin-top: 2rem;">
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">Retrouvez mes travaux</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;" data-i18n="contact_social_label">Retrouvez mes travaux</p>
             <div class="social-links">
               <a id="githubLink" href="https://github.com" target="_blank" class="social-btn">
                 <i class="fa-brands fa-github"></i> GitHub
@@ -218,31 +232,31 @@
         <div class="contact-form-card">
           <form id="contactForm">
             <div class="form-group">
-              <label for="senderName" class="form-label">Votre Nom / Entreprise *</label>
-              <input type="text" id="senderName" class="form-control" placeholder="Ex: Jean Dupont" required />
+              <label for="senderName" class="form-label" data-i18n="form_name_label">Votre Nom / Entreprise *</label>
+              <input type="text" id="senderName" class="form-control" placeholder="Ex: Jean Dupont" data-i18n-placeholder="form_name_placeholder" required />
             </div>
 
             <div class="form-group">
-              <label for="senderEmail" class="form-label">Votre Adresse Email *</label>
-              <input type="email" id="senderEmail" class="form-control" placeholder="ex: jean@entreprise.com" required />
+              <label for="senderEmail" class="form-label" data-i18n="form_email_label">Votre Adresse Email *</label>
+              <input type="email" id="senderEmail" class="form-control" placeholder="ex: jean@entreprise.com" data-i18n-placeholder="form_email_placeholder" required />
             </div>
 
             <div class="form-group">
-              <label for="projectType" class="form-label">Type de Projet</label>
+              <label for="projectType" class="form-label" data-i18n="form_type_label">Type de Projet</label>
               <select id="projectType" class="form-control">
-                <option value="mobile">Développement Application Mobile (Flutter)</option>
-                <option value="web">Création de Site Web / Web App</option>
-                <option value="api">Développement Backend & API</option>
-                <option value="other">Autre / Demande d'information</option>
+                <option value="mobile" data-i18n="form_type_mobile">Développement Application Mobile (Flutter)</option>
+                <option value="web" data-i18n="form_type_web">Création de Site Web / Web App</option>
+                <option value="api" data-i18n="form_type_api">Développement Backend & API</option>
+                <option value="other" data-i18n="form_type_other">Autre / Demande d'information</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="senderMessage" class="form-label">Détails de votre message *</label>
-              <textarea id="senderMessage" class="form-control" placeholder="Décrivez votre projet, vos objectifs et vos délais..." required></textarea>
+              <label for="senderMessage" class="form-label" data-i18n="form_msg_label">Détails de votre message *</label>
+              <textarea id="senderMessage" class="form-control" placeholder="Décrivez votre projet, vos objectifs et vos délais..." data-i18n-placeholder="form_msg_placeholder" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="form_submit_btn">
               <i class="fa-solid fa-paper-plane"></i> Envoyer le message
             </button>
           </form>
